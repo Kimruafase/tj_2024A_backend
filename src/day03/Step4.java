@@ -38,7 +38,7 @@ public class Step4 {
 //                [ 출력조건] '입력한OOOO년 은' 윤년 입니다.  혹은 평년 입니다 로 출력하시오.
         System.out.print(" >> 연도 입력 : ");
         int year = scanner.nextInt();
-        String year1 = (year % 4 == 0 && year % 100 == 0) && (year % 100 == 0 && year % 400 == 0) ? "윤년"
+        String year1 = (year % 4 == 0 && year % 100 == 0 && year % 400 == 0) ? "윤년"
                 : year % 4 == 0 && year % 100 == 0 ? "평년"
                 : year % 4 == 0 ? "윤년" : " ";
         System.out.println(" >> 입력한 " + year + "년은 " + year1 + "입니다.");
