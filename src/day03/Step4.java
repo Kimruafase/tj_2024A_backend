@@ -80,6 +80,6 @@ public class Step4 {
         if(int4 == ball3 || int5 == ball3 || int6 == ball3){
             count++;
         }
-        System.out.println(" >> 동일한 번호는 " + count + "개입니다.");
+        System.out.println(" >> 동일한 번호는 " + count + "개입니다...");
     }
 }
