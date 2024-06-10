@@ -2,7 +2,7 @@ package day03;
 
 import java.util.Scanner;
 
-public class step2 {
+public class Step2 {
     public static void main(String[] args) {
 
         // 예제 1 : 작성자, 내용, 날짜 입력 받아서 형식에 맞추어 출력
