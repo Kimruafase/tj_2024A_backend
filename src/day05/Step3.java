@@ -190,7 +190,7 @@ public class Step3 {
             }
             b--;
             l++;
-            System.out.println();
+            System.out.println();;
         }
 
     }
