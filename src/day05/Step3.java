@@ -161,5 +161,37 @@ public class Step3 {
             System.out.println();
         }
 
+        //  [12]
+        System.out.print(" >> [12] 줄 입력 : ");
+        int w1 = scanner.nextInt();
+        System.out.print(" >> [12] 최소 줄 입력 : ");
+        int b = scanner.nextInt();
+        System.out.print(" >> [12] 최대 줄 입력 : ");
+        int l = scanner.nextInt();
+        for (int i = 1; i <= w1; i++) {
+            for (int j = 1; j <= w1; j++) {
+                if(j<=b || j>=l){
+                    System.out.print("*");
+                }else{
+                    System.out.print(" ");
+                }
+            }
+            b++;
+            l--;
+            System.out.println();
+        }
+        for (int i = 1; i <= w1; i++) {
+            for (int j = w1; j >= 1; j--) {
+                if(j<=b || j>=l){
+                    System.out.print("*");
+                }else{
+                    System.out.print(" ");
+                }
+            }
+            b--;
+            l++;
+            System.out.println();
+        }
+
     }
 }
