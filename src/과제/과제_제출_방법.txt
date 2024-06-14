@@ -1,0 +1,12 @@
+http://itdanja.cafe24.com/study/info?cno=4
+
+1.  로그인
+    > 아이디   : 본인 이름
+    > 비밀번호  : 본인 핸드폰 번호 ('-' 없이)
+
+2.  Stage 1 - quiz
+    Stage 2 - quiz
+    Stage 3 - quiz
+    Stage 4 - quiz
+
+3.  각 문제 페이지 하단에 본인이 작성한 코드가 있는 git 주소를 제출
