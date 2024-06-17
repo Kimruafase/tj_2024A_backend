@@ -11,10 +11,10 @@ public class Level1_6 {
         long l = 1345294336L;
         int l1 = (int)l;
         System.out.println("int <- long : "+l1);
-        float f = 3L;
+        float f = 3.123123123F;
         long f1 = (long) f;
         System.out.println("long <- float : "+f1);
-        double d = 3.1231231689453125F;
+        double d = 3.123123123;
         float d1 = (float)d;
         System.out.println("float <- double : "+d1);
     }
