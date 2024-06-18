@@ -1,12 +1,15 @@
 package day09.Step3;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class 제품_CRUD_객체와배열버전 {
+public class 제품_CRUD_객체와가변길이배열버전 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         //  제품 메모리 설계
-        product[] productList = new product[3];  //  [ null ] [ null ] [ null ]
+        int count = 0;
+        product[] productList = new product[count];  //  [ null ] [ null ] [ null ]
+
 
         while (true){
             System.out.print(" >> 1. 등록(C) 2. 출력(R) 3. 수정(U) 4. 삭제(D) : ");  // 무한 출력
@@ -19,24 +22,22 @@ public class 제품_CRUD_객체와배열버전 {
                 System.out.print(" >> 제품가격을 입력해주세요.");
                 int productPrice1 = scanner.nextInt();
 
-                boolean saveCheck = false;
-                for (int i = 0; i < productList.length; i++) {
-                    if(productList[i] == null){
-                        product product = new product();
+                count++;
 
-                        product.setCode(productCode1);
-                        product.setName(productName1);
-                        product.setPrice(productPrice1);
+                product[] newProductList = new product[count];
 
-                        productList[i] = product;
-                        saveCheck = true;
-                        break;
-                    }
-                } // for end
-
-                if( !saveCheck ){
-                        System.out.println(" [경고] 제품 등록 자리가 부족합니다.");
+                for( int i = 0 ; i<productList.length; i++ ){
+                    newProductList[i] = productList[i];
                 }
+                product product = new product();
+
+                product.setCode( productCode1 );
+                product.setName( productName1 );
+                product.setPrice( productPrice1 );
+
+                newProductList[count-1] = product;
+
+                productList = newProductList;
 
             } else if (ch==2) {
                 System.out.println("============ 제품 목록 ===========");
