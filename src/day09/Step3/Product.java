@@ -1,6 +1,6 @@
 package day09.Step3;
 
-public class product{
+public class Product {
 
     private String code;
     private String name;

@@ -6,7 +6,7 @@ public class 제품_CRUD_객체와배열버전 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         //  제품 메모리 설계
-        product[] productList = new product[3];  //  [ null ] [ null ] [ null ]
+        Product[] productList = new Product[3];  //  [ null ] [ null ] [ null ]
 
         while (true){
             System.out.print(" >> 1. 등록(C) 2. 출력(R) 3. 수정(U) 4. 삭제(D) : ");  // 무한 출력
@@ -22,7 +22,7 @@ public class 제품_CRUD_객체와배열버전 {
                 boolean saveCheck = false;
                 for (int i = 0; i < productList.length; i++) {
                     if(productList[i] == null){
-                        product product = new product();
+                        Product product = new Product();
 
                         product.setCode(productCode1);
                         product.setName(productName1);

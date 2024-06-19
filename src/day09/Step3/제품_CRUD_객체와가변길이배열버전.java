@@ -1,6 +1,5 @@
 package day09.Step3;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class 제품_CRUD_객체와가변길이배열버전 {
@@ -8,7 +7,7 @@ public class 제품_CRUD_객체와가변길이배열버전 {
         Scanner scanner = new Scanner(System.in);
         //  제품 메모리 설계
         int count = 0;
-        product[] productList = new product[count];  //  [ null ] [ null ] [ null ]
+        Product[] productList = new Product[count];  //  [ null ] [ null ] [ null ]
 
 
         while (true){
@@ -24,12 +23,12 @@ public class 제품_CRUD_객체와가변길이배열버전 {
 
                 count++;
 
-                product[] newProductList = new product[count];
+                Product[] newProductList = new Product[count];
 
                 for( int i = 0 ; i<productList.length; i++ ){
                     newProductList[i] = productList[i];
                 }
-                product product = new product();
+                Product product = new Product();
 
                 product.setCode( productCode1 );
                 product.setName( productName1 );
