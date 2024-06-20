@@ -58,7 +58,8 @@ public class Step1 {
             System.out.println("7.Order Add");      System.out.println("8.Order List");
             System.out.print("Menu choose : ");     int ch = scan.nextInt();
             if( ch == 1 ){
-                System.out.print(">>카테고리명을 입력해주세요 : "); categoryList.add(new Category(scan.next()));
+                System.out.print(">>카테고리명을 입력해주세요 : ");
+                categoryList.add(new Category(scan.next()));
 
             }
             else if ( ch == 2 ){
