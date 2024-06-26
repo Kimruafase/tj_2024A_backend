@@ -1,0 +1,28 @@
+MVC 디자인패턴
+    > ex_ 1인 식당 (냉장고 관리, 요리, 서빙)
+    > 영업이 잘 되서 직원 고용
+        > 재고 관리, 요리 담당, 서빙 담당
+        > 분업 (책임자 -> 문제 발생 시 확인)
+
+    > 개발도 여러 사람이 작업할 때 분업
+        > M : model      [JAVA, PYTHON]
+        > V : view       [HTML, CSS, JS] -> 입 / 출력
+        > C : controller [JAVA, PYTHON]
+            > DTO(Data Transfer Object) : 데이터 전송 객체
+            > DAO(Data Access Object)   : 데이터 접근 객체(DB 연동)
+            > VO(Value Object)          : setter 없는 데이터 객체(읽기 모드 객체)
+
+JAVA 만 사용하는 경우 MVC 패턴
+    > View       조건 역할 -> 입력(Scanner), 출력(Print)
+    > Controller 조건 역할 -> Model <---> view 중간에 데이터 전달, 유효성 검사
+    > Model      조건 역할 -> 데이터들을 관리 / 조작(DB SQL)
+
+    > 흐름
+        > VIEW (요청)--> CONTROLLER (요청)--> MODEL
+        > VIEW <--(응답) CONTROLLER <--(응답) MODEL
+
+    AppStart   : main 함수를 갖고 처음에 View 실행해주는 클래스
+    View       : Scanner 와 Print 메소드를 이용해서 입출력을 해주는 클래스
+    Controller : View 로 받은 데이터를 Dao 에게 전달하는 역할을 하는 클래스
+    Dao        : DB와 연동해서 받은 데이터를 DB의 SQL 처리 후 결과를 Controller 로 전달하는 역할
+    Dto        : 이동 간의 데이터가 많을 때 분류별로 만든 클래스
