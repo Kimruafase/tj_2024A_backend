@@ -69,3 +69,27 @@ insert into reply(rContent, mNo, bNo) value('5번 댓글입니다', 3, 1);	# 1�
 select *from member;
 select *from board;
 select *from reply;
+
+# 검색
+# 1. 전체 검색
+select *from member;
+
+# 2. 조건 검색
+select *from member where mNo = 1;                  -- mno가 '1'인 회원 레코드 검색
+select *from member where mId = 'qwer';               -- mId가 'qwer'인 회원 레코드 검색
+select *from member where mPhone = '010-5678-5678';      -- mPhone이 '010-5678-5678'인 회원 레코드 검색
+
+# 아이디 찾기 / 비교 (회원명과 연락처가 동일한 회원 검색)
+# 비교 연산자 : '>' 초과, '<' 미만, '>=' 이상, '<=' 이하
+# 관계 연산자 : and, or, not            vs JAVA : &&, ||, !
+# 비교 연산자 : ex_ a = 1 and b = 2         vs JAVA : a == 1 && b = 2
+select *from member where mName = '김장훈' and mPhone = '010-0123-0123';
+# JDBC DAO SQL 작성 시 : select *from member where mName = ? and mPhone = ?;
+
+# 비밀번호 찾기 / 비교 (아이디와 연락처가 동일한 회원 검색)
+select *from member where mId = 'zxcv' and mPhone = '010-0123-0123';
+# JDBC DAO SQL 작성 시 : select *from member where mId = ? and mPhone = ?;
+
+# 로그인 / 비교 (아이디와 비밀번호가 동일한 회원 검색)
+select *from member where mId = 'zxcv' and mPwd = 'zxc789';
+# JDBC DAO SQL 작성 시 : select *from member where mId = ? and mPwd = ?;
