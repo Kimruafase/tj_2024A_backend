@@ -1,0 +1,28 @@
+[회원가입]
+ 1.  control 매개변수 : mId -> String, mPw -> String, mName -> String, mPhoneNum -> String
+             리턴     : 회원가입 성공 여부 boolean
+ 2. Dao 매개변수, 리턴 동일
+ 3. View 로직 : scan으로 id, pw, name, phoneNum 입력 받고, control메소드에 매개변수로 전달, control에서 반환한 boolean 값을 토대로 회원가입 성공 여부 판단
+ 4. control 로직 : view에서  매개변수로 전달 받은 값을 Dao에 매개변수로 전달하고 Dao에서 반환한 boolean값을 view에 반환함.
+ 5. dao 로직 : control 에서 매개변수로 전달 받은 값을 sql로 조작하고 업데이트함. 그리고 DB에 저장 성공 여부를 boolean 값으로 control에 반환
+
+[아이디 찾기] : 이름과 연락처를 이용한 아이디 찾기
+ 1. 매개변수 : name, phoneNum
+ 2. 리턴 : ArrayList<String>
+ 3. View 로직 : scan으로 name, phoneNum 입력 받고 dto로 생성 후 control에 매개변수로 전달 control에서 반환한 ArrayList<String>를 토대로  아이디 찾기 출력
+ 4. control 로직 : view에서 매개변수로 전달 받은 dto 변수를 dao에 전달하고 dao에서 반환한  list 값을 view로 반환함.
+ 5. dao 로직 : control에서 매개변수로 전달받은 dto변수를 토대로 sql 작성 후 select로 찾고 찾은 값과 성공 여부를 control에 반환.
+
+[비밀번호 찾기] : 아이디와 연락처가 동일한 회원 검색
+ 1. 매개변수 : id, phoneNum
+ 2. 리턴 : ArrayList<String>
+ 3. View 로직 : scan으로 name, phoneNum 입력 받고 dto로 생성 후 control에 매개변수로 전달 control에서 반환한 list 값을 토대로 비밀번호 찾기 출력
+ 4. control 로직 : view에서 매개변수로 전달 받은 dto 변수를 dao에 전달하고 dao에서 반환한 list 값을 view로 반환함.
+ 5. dao 로직 : control에서 매개변수로 전달받은 dto변수를 토대로 sql 작성 후 select로 찾고 찾은 값을 control에 반환.
+
+[로그인] : 아이디와 비밀번호가 동일한 회원 검색
+1. 매개변수 : id, phoneNum
+ 2. 리턴 : boolean
+ 3. View 로직 : scan으로 name, phoneNum 입력 받고 dto로 생성 후 control에 매개변수로 전달 control에서 반환한 boolean값을 토대로 출력
+ 4. control 로직 : view에서 매개변수로 전달 받은 dto 변수를 dao에 전달하고 dao에서 반환한 boolean값 반환함.
+ 5. dao 로직 : control에서 매개변수로 전달받은 dto변수를 토대로 sql 작성 후 select로 찾고 성공 여부를 control에 반환.
