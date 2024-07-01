@@ -1,6 +1,10 @@
 package day16.Step1.model.dto;  // 패키지 day 16의 Step1 패키지 안에 model 패키지 안에 dto 패키지를 의미합니다.
 
 public class MemberDto {        //  이동객체 // public 으로 선언된 MemberDto 클래스입니다.
+
+    //  - DB 테이블의 회원마다 레코드 / 행 1개이고 레코드 / 행 1개당 DTO 1개
+    //  -> 회원이 여러개 이면 DTO 여러개 -> ArrayList<MemberDto> 사용
+
     //  1. 멤버변수 -> DB 테이블 필드와 동일
     private int mNo;    // private 로 선언된 int 타입의 mNo 멤버변수입니다.
     private String mId; // private 로 선언된 String 타입의 mId 멤버변수입니다.

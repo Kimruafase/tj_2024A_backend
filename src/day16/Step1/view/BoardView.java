@@ -1,8 +1,11 @@
 package day16.Step1.view;   // 패키지 day 16의 Step1 패키지 안에 view 패키지를 의미합니다.
 
+import day16.Step1.controller.BoardController;
 import day16.Step1.controller.MemberController; //  패키지 day 16의 패키지 Step1에서 패키지 controller 안에 MemberController 클래스를 가져왔음을 의미합니다.
+import day16.Step1.model.dto.BoardDto;
 import day16.Step1.model.dto.MemberDto; // 패키지 day 16의 패키지 Step1에서 패키지 model 안에 dto 패키지에서 MemberDto 클래스를 가져왔음을 의미합니다.
 
+import java.util.ArrayList;
 import java.util.Scanner;   // 자바 유틸 중 Scanner 클래스를 사용하기 위해 가져와서 쓰겠다는 것을 의미합니다.
 
 public class BoardView {    // public 으로 선언된 BoardView 클래스입니다.
@@ -79,6 +82,96 @@ public class BoardView {    // public 으로 선언된 BoardView 클래스입니
         }   //  mDelete 메소드 end
         //  4. 게시판(게시물 전체 출력) 함수
         public void bPrint(){   //  public 으로 선언된 반환 타입이 없는 bPrint 메소드입니다.
+            //  컨트롤에게 전체 게시물 조회 요청
+            ArrayList<BoardDto> result = BoardController.getInstance().bPrint();
+            System.out.println("번호\t 조회수\t 작성일\t\t\t 제목");
+            result.forEach(boardDto -> {        // 리스트 객체명.forEach(반복변수 -> {실행문}); // 리스트 내 전체 DTO를 하나씩 반복변수에 대입 반복
+                System.out.printf("%2d\t%2d\t%10s\t%s \n",boardDto.getbNo(),boardDto.getbView(),boardDto.getbDate(),boardDto.getbTitle());
+            });
+            System.out.println(" >> 0 : 글쓰기  1~ : 개별 글 조회 << ");
+            int ch = scan.nextInt();
 
-        }   // bPrint 메소드 종료
+            if(ch == 0){
+                bWrite();
+            }else if (ch >= 1){
+                bView(ch);
+            }
+        }   //  bPrint 메소드 종료
+
+        //  5. 게시물 쓰기 함수
+        public void bWrite(){
+            scan.nextLine();
+            System.out.println(" >> 제목을 입력하세요. << ");               //  1. 입력받고
+            String title = scan.nextLine();
+            System.out.println(" >> 내용을 입력하세요. << ");
+            String content = scan.nextLine();
+
+            BoardDto boardDto = new BoardDto();                         //  2. 입력 받은 값들을 객체의 각각 매개변수에 값 대입
+            boardDto.setbTitle(title);
+            boardDto.setbContent(content);
+
+            boolean result = BoardController.getInstance().bWrite(boardDto);    //  3. 입력받은 객체를 control 에게 전달 후 boolean 타입으로 반환 받음.
+            if(result){
+                System.out.println(" >> 글 작성 성공 << ");
+            }else{
+                System.out.println(" >> 글 작성 실패 << ");
+            }
+
+        }   //  bWrite 메소드 end
+
+        //  6. 게시물 개별조회 함수
+        public void bView(int bNo){
+            BoardDto boardDto = BoardController.getInstance().bView(bNo);    // 이전에 입력받은 bNo 값을 토대로 boardController 에 전달 후 boardDto 값을 반환받음.
+            if(boardDto == null){                                       // 만약 게시물을 찾지 못했다면
+                System.out.println(" >> 존재하지 않는 게시물입니다.");
+                return;
+            }else{
+                System.out.println(" >> 제목 : " + boardDto.getbTitle());
+                System.out.print(" >> 작성자 : " + boardDto.getmNo());
+                System.out.println(" \t>> 조회수 : " + boardDto.getbView());
+                System.out.println(" >> 작성일 : " + boardDto.getbDate());
+                System.out.println(" >> 내용 : " + boardDto.getbContent());
+                System.out.println();
+                System.out.println(" >> 1. 삭제 2. 수정 << ");
+                int ch2 = scan.nextInt();
+                if(ch2 == 1){
+                    bDelete(bNo);
+                }else if(ch2 == 2){
+                    dUpdate(bNo);
+                }
+
+            }
+        }   //  bView 메소드 end
+
+        //  7. 게시물 삭제 함수
+        public void bDelete(int bNo){
+            boolean result = BoardController.getInstance().bDelete(bNo);
+            if(result){
+                System.out.println(" >> 삭제 성공 << ");
+            }else{
+                System.out.println(" >> 삭제 실패 << ");
+            }
+        }   // bDelete 메소드 end
+
+        //  8. 게시물 수정 함수
+        public void dUpdate(int bNo){
+            scan.nextLine();
+            System.out.println(" >> 수정할 제목을 입력하세요. ");
+            String title = scan.nextLine();
+            System.out.println(" >> 수정할 내용을 입력하세요. ");
+            String content = scan.nextLine();
+
+            BoardDto boardDto = new BoardDto();
+            boardDto.setbTitle(title);
+            boardDto.setbContent(content);
+            boardDto.setbNo(bNo);
+
+            boolean result = BoardController.getInstance().dUpdate(boardDto);
+            if(result){
+                System.out.println(" >> 수정 성공 << ");
+            }else{
+                System.out.println(" >> 수정 실패 << ");
+            }
+        }   // dUpdate 메소드 end
+
 }   //  BoardView 클래스 종료

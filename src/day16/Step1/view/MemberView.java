@@ -9,6 +9,11 @@ import java.util.Scanner;   // 자바 유틸 중 Scanner 클래스를 사용하�
 
 public class MemberView {   //  public 으로 선언된 MemberView 클래스를 의미합니다.
     //  해당 클래스의 함수들을 다른 클래스에서 호출할 수 있도록 static 변수에 해당 객체를 생성
+    //  - static 선언시점 : 프로그램 시작 시 , static 사라짐 / 초기화 시점  : 프로그램 종료 시
+    //  - 메소드를 실행하기 위해서는 객체 필요. (static 메소드가 아닌 이상)
+    //  - 멤버변수는 객체마다 할당, 메소드는 객체마다 실행을 하지만 코드는 공유
+    //  - 전역 객체 -> 모든 곳에서 호출 가능한 객체 1개
+    //  - 싱글톤 : 프로그램 내 전역으로 하나의 객체를 생성, 주로 전역에서 공유할 때 사용
     public static MemberView mView = new MemberView();  // public 으로 선언된 static 변수이며 MemberView 클래스에서 기본 생성자를 통해 생성되었습니다.
     //  입력 객체 멤버변수
     Scanner scan = new Scanner(System.in);  // Scan 변수가 입력을 받기 위해 Scanner 클래스에서 생성자를 통해 생성되었습니다.
