@@ -25,6 +25,8 @@ create table board(				# 글 제목, 글 내용, 글 작성일, 글 조회수, �
 	bNo int auto_increment,
     primary key(bNo),
     foreign key(mNo) references member(mNo)
+    on delete cascade
+    on update cascade			-- 회원의 pk값이 탈퇴 / 수정하면 게시물을 어떻게 할 것인지 -- 제약 조건 옵션 설정하기
 );
 select *from board; -- 확인용
 # 3. 댓글 테이블
@@ -36,8 +38,8 @@ create table reply(				# 댓글 내용, 댓글 작성일, 댓글 작성자
     bNo int,
     rNo int auto_increment,
     primary key(rNo),
-    foreign key(mNo) references member(mNo),
-    foreign key(bNo) references board(bNo)
+    foreign key(mNo) references member(mNo) on delete cascade on update cascade,
+    foreign key(bNo) references board(bNo) on delete cascade on update cascade
 );
 select *from reply;
 
@@ -75,14 +77,14 @@ select *from reply;
 select *from member;
 
 # 2. 조건 검색
-select *from member where mNo = 1;                  -- mno가 '1'인 회원 레코드 검색
-select *from member where mId = 'qwer';               -- mId가 'qwer'인 회원 레코드 검색
-select *from member where mPhone = '010-5678-5678';      -- mPhone이 '010-5678-5678'인 회원 레코드 검색
+select *from member where mNo = 1;						-- mno가 '1'인 회원 레코드 검색
+select *from member where mId = 'qwer';					-- mId가 'qwer'인 회원 레코드 검색
+select *from member where mPhone = '010-5678-5678';		-- mPhone이 '010-5678-5678'인 회원 레코드 검색
 
 # 아이디 찾기 / 비교 (회원명과 연락처가 동일한 회원 검색)
 # 비교 연산자 : '>' 초과, '<' 미만, '>=' 이상, '<=' 이하
-# 관계 연산자 : and, or, not            vs JAVA : &&, ||, !
-# 비교 연산자 : ex_ a = 1 and b = 2         vs JAVA : a == 1 && b = 2
+# 관계 연산자 : and, or, not				vs JAVA : &&, ||, !
+# 비교 연산자 : ex_ a = 1 and b = 2			vs JAVA : a == 1 && b = 2
 select *from member where mName = '김장훈' and mPhone = '010-0123-0123';
 # JDBC DAO SQL 작성 시 : select *from member where mName = ? and mPhone = ?;
 
@@ -93,3 +95,29 @@ select *from member where mId = 'zxcv' and mPhone = '010-0123-0123';
 # 로그인 / 비교 (아이디와 비밀번호가 동일한 회원 검색)
 select *from member where mId = 'zxcv' and mPwd = 'zxc789';
 # JDBC DAO SQL 작성 시 : select *from member where mId = ? and mPwd = ?;
+
+# 탈퇴 / delete 
+# 1. 회원번호가 '1'인 회원 삭제
+delete from member where mNo = 1;
+
+# 2. 회원번호가 '1'이면서 비림번호가 '2'인 회원 삭제
+delete from member where mNo = 1 and mPwd = 2;
+# JDBC DAO SQL 작성 시 : delete from member where mNo = ? and mPwd = ?;
+
+# 수정
+# 1. 회원번호가 '0'인 회원 레코드의 이름을 '유재석'으로 수정
+update member set mName = '유재석' where mNo = 0;
+# 2. 회원번호가 '0'인 회원 레코드의 이름을 '유재석', 연락처를 '010-9999-9999'로 수정
+update member set mName = '유재석', mPhone = '010-9999-9999' where mNo = 0;
+# JDBC DAO SQL 작성 시 : update member set mName = ?, mPhone = ? where mNo = ?;
+
+# 조회
+# 1. 전체 조회
+select *from board;
+
+# 2. 개별 조회 (조건이 추가)
+select *from board where bno = 10;	-- 10번 게시물 개별 조회
+
+# 삭제
+delete from board where bno = 0;
+delete from board where bno = 0 and mno = 0;
