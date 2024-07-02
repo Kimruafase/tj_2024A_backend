@@ -4,6 +4,7 @@ import day16.Step1.controller.BoardController;
 import day16.Step1.controller.MemberController; //  패키지 day 16의 패키지 Step1에서 패키지 controller 안에 MemberController 클래스를 가져왔음을 의미합니다.
 import day16.Step1.model.dto.BoardDto;
 import day16.Step1.model.dto.MemberDto; // 패키지 day 16의 패키지 Step1에서 패키지 model 안에 dto 패키지에서 MemberDto 클래스를 가져왔음을 의미합니다.
+import day16.Step1.model.dto.ReplyDto;
 
 import java.util.ArrayList;
 import java.util.Scanner;   // 자바 유틸 중 Scanner 클래스를 사용하기 위해 가져와서 쓰겠다는 것을 의미합니다.
@@ -84,9 +85,9 @@ public class BoardView {    // public 으로 선언된 BoardView 클래스입니
         public void bPrint(){   //  public 으로 선언된 반환 타입이 없는 bPrint 메소드입니다.
             //  컨트롤에게 전체 게시물 조회 요청
             ArrayList<BoardDto> result = BoardController.getInstance().bPrint();
-            System.out.println("번호\t 조회수\t 작성일\t\t\t 제목");
+            System.out.println("번호\t 조회수\t 작성일\t\t\t제목 \t작성자");
             result.forEach(boardDto -> {        // 리스트 객체명.forEach(반복변수 -> {실행문}); // 리스트 내 전체 DTO를 하나씩 반복변수에 대입 반복
-                System.out.printf("%2d\t%2d\t%10s\t%s \n",boardDto.getbNo(),boardDto.getbView(),boardDto.getbDate(),boardDto.getbTitle());
+                System.out.printf("%2d\t%2d\t%10s\t%s %s\n",boardDto.getbNo(),boardDto.getbView(),boardDto.getbDate(),boardDto.getbTitle(),boardDto.getmId());
             });
             System.out.println(" >> 0 : 글쓰기  1~ : 개별 글 조회 << ");
             int ch = scan.nextInt();
@@ -132,12 +133,21 @@ public class BoardView {    // public 으로 선언된 BoardView 클래스입니
                 System.out.println(" >> 작성일 : " + boardDto.getbDate());
                 System.out.println(" >> 내용 : " + boardDto.getbContent());
                 System.out.println();
-                System.out.println(" >> 1. 삭제 2. 수정 << ");
+                //  --------- 댓글 출력 -------- //
+
+                rPrint(bNo);
+
+                // --------------------------- //
+                System.out.println(" >> 1. 삭제 2. 수정 3. 댓글 쓰기 4. 뒤로 가기 << ");
                 int ch2 = scan.nextInt();
                 if(ch2 == 1){
                     bDelete(bNo);
-                }else if(ch2 == 2){
+                }else if(ch2 == 2) {
                     dUpdate(bNo);
+                } else if (ch2 == 3) {
+                    rWrite(bNo);
+                } else if(ch2 == 4){
+                    return;
                 }
 
             }
@@ -174,4 +184,42 @@ public class BoardView {    // public 으로 선언된 BoardView 클래스입니
             }
         }   // dUpdate 메소드 end
 
+        //  9. 게시물 댓글 전체 출력 함수
+
+        public void rPrint(int bNo){
+            ArrayList<ReplyDto> result = BoardController.getInstance().rPrint(bNo);     // BoardController 클래스에 rPrint 메소드에 bNo를 매개변수로 보낸 후 ArrayList<ReplyDto> 값으로 반환받음.
+
+            //  리스트객체명.forEach( 반복변수명 -> {실행문});
+                //  리스트 내 요소들을 하나씩 반복변수에 대입 반복 처리
+            result.forEach( replyDto -> {
+                System.out.printf("%s %s %s \n",replyDto.getrDate(),replyDto.getmId(),replyDto.getrContent());
+            });
+
+
+        }   //  rPrint 메소드 end
+
+
+        //  10. 게시물 댓글 쓰기 함수
+        public void rWrite(int bNo){
+            //  만약에 코드 상황 상 로그인 후 댓글 쓰기가 아니었다면
+                // 로그인 상태를 확인 후 댓글 쓰기 진행
+            if(!MemberController.mControl.loginState()){
+                System.out.println(" >> 로그인 후 가능합니다. <<");
+                return;
+            }
+            scan.nextLine();
+            System.out.println(" >> 댓글을 입력하세요. << ");
+            String rContent = scan.nextLine();
+
+            ReplyDto replyDto = new ReplyDto();         //  ReplyDto 생성자
+            replyDto.setbNo(bNo);                       //  bNo, rContent 를 setter 를 통해 간접 대입
+            replyDto.setrContent(rContent);
+            boolean result = BoardController.getInstance().rWrite(replyDto);    // BoardController 의 rWrite 메소드에 replyDto 매개변수를 보내고 result 값에 boolean 타입으로 반환 받음
+            if(result){                                                         // result 가 true 라면 아래 실행문 실행 false 라면 else 의 실행문 실행
+                System.out.println(" >> 댓글 쓰기 성공 << ");
+            }else {
+                System.out.println(" >> 댓글 쓰기 실패 << ");
+            }
+
+        }   //  rWrite 메소드 end
 }   //  BoardView 클래스 종료

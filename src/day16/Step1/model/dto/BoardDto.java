@@ -8,7 +8,8 @@ public class BoardDto {
     private int bView;
     private int mNo;
     private int bNo;
-
+    // - 작성자 ID
+    private String mId;
     //  2. 생성자
     public BoardDto(){}
     public BoardDto(String bTitle, String bContent, String bDate, int bView, int mNo, int bNo) {
@@ -57,6 +58,14 @@ public class BoardDto {
     }
     public void setbNo(int bNo) {
         this.bNo = bNo;
+    }
+
+    public String getmId() {
+        return mId;
+    }
+
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
     //  2. toString

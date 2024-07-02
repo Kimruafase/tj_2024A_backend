@@ -25,6 +25,11 @@ public class MemberController { // public 으로 선언된 MemberController 클�
         loginMno = 0;   // loginMno 지역변수에 0을 저장합니다.
     }   //  logOut 메소드 end
 
+    //  2-3. 현재 로그인 상태 반환 함수
+    public boolean loginState(){
+        return loginMno == 0 ? false : true;
+    }
+
     //  2. 로그인 함수
     public boolean logIn(MemberDto mDto){   //  public 으로 선언된 boolean 타입을 반환하는 logIn 메소드입니다. 매개변수로 MemberDto 타입의 mDto 를 받습니다.
         int result = MemberDao.mDao.logIn(mDto);    // int 타입의 result 지역변수에 MemberDao 클래스에서 mDao static 객체를 통해 호출한 logIn 메소드에서 매개변수 mDto 대입 후 반환된 값을 저장합니다.
