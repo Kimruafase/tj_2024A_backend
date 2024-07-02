@@ -31,7 +31,7 @@ public class DungeonView {
                         meetMonster();
                     } else if (ch == 2) {
                         System.out.println(ch + "번이 나왔습니다!");
-                        System.out.println("회복의 크리스탏을 발견하였습니다! 체력을 회복합니다.");
+                        System.out.println("회복의 크리스탈을 발견하였습니다! 체력을 회복합니다.");
                         hpRecovery();
                     } else if (ch == 3) {
                         System.out.println(ch + "번이 나왔습니다!");
