@@ -3,22 +3,25 @@ package 프로젝트_2nd.model;
 public class CharacterDto {
     //이동객체 DTO생성
     //1. 멤버변수
+    private int ckey;
     private String nickname;
     private int chp;
-    private int cmp;
-    private int cmoney;
-    private int cdamage;
+    private int akey;
+
     //2. 생성자
+
     //기본생성자
     public CharacterDto(){}
     //전체 생성자
-    public CharacterDto(String nickname, int chp, int cmp, int cmoney, int cdamage) {
+
+    public CharacterDto(int ckey, String nickname, int chp, int akey) {
+        this.ckey = ckey;
         this.nickname = nickname;
         this.chp = chp;
-        this.cmp = cmp;
-        this.cmoney = cmoney;
-        this.cdamage = cdamage;
+        this.akey = akey;
     }
+
+
     //필요 생성자
 
     public CharacterDto(String nickname) {
@@ -44,40 +47,32 @@ public class CharacterDto {
         this.chp = chp;
     }
 
-    public int getCmp() {
-        return cmp;
+    public int getCkey() {
+        return ckey;
     }
 
-    public void setCmp(int cmp) {
-        this.cmp = cmp;
+    public void setCkey(int ckey) {
+        this.ckey = ckey;
     }
 
-    public int getCmoney() {
-        return cmoney;
+    public int getAkey() {
+        return akey;
     }
 
-    public void setCmoney(int cmoney) {
-        this.cmoney = cmoney;
-    }
-
-    public int getCdamage() {
-        return cdamage;
-    }
-
-    public void setCdamage(int cdamage) {
-        this.cdamage = cdamage;
+    public void setAkey(int akey) {
+        this.akey = akey;
     }
 
     //3-2 toString
 
+
     @Override
     public String toString() {
-        return "CharacterDTO{" +
-                "nickname='" + nickname + '\'' +
+        return "CharacterDto{" +
+                "ckey=" + ckey +
+                ", nickname='" + nickname + '\'' +
                 ", chp=" + chp +
-                ", cmp=" + cmp +
-                ", cmoney=" + cmoney +
-                ", cdamage=" + cdamage +
+                ", akey=" + akey +
                 '}';
     }
 }
