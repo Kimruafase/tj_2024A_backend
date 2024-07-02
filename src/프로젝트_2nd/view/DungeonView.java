@@ -80,6 +80,7 @@ public class DungeonView {
         }
         dungeonState += dungeonStateChange;
         System.out.println("현재 체력은 " + cHp + "입니다.\n");
+        System.out.println("진행도가 " + dungeonStateChange + "%만큼 증가합니다.\n");
         System.out.println("진행도 : " + dungeonState + "%");
         gameOver();
     }
@@ -89,6 +90,7 @@ public class DungeonView {
 
 
         dungeonState = 0;
+        System.out.println("진행도가 " + dungeonState + "%로 초기화됩니다...\n");
         System.out.println("진행도 : " + dungeonState + "%");
         gameOver();
     }
@@ -122,6 +124,7 @@ public class DungeonView {
         dungeonState += dungeonStateChange;
         System.out.println("체력이 " + cHpChange + "만큼 감소합니다. ");
         System.out.println("현재 체력은 " + cHp + "입니다.\n");
+        System.out.println("진행도가 " + dungeonStateChange + "%만큼 증가합니다.\n");
         System.out.println("진행도 : " + dungeonState + "%");
         gameOver();
 
@@ -151,21 +154,22 @@ public class DungeonView {
         characterDto.setChp(cHp);
         dungeonDtoMonster.setMhp(mHp);
         while (true){
-            System.out.println("아무 키나 입력하세요. (INSERT)");
+            System.out.println("공격하시려면 아무 키나 입력하세요. (INSERT)");
             scan.next();
             DungeonController.getInstance().myCharacterFight(characterDto,dungeonDtoMonster,skillDto);
-            System.out.println("\n-----------------------------------------");
+            System.out.println("\n-----------------------------------------\n");
             System.out.println("나의 체력 : " + characterDto.getChp());
             System.out.println("몬스터의 체력 : " + dungeonDtoMonster.getMhp());
-            System.out.println("-----------------------------------------\n");
+            System.out.println("\n-----------------------------------------\n");
             if(characterDto.getChp() <= 0){
                 cHp = characterDto.getChp();
                 gameOver();
                 return;
             } else if (dungeonDtoMonster.getMhp() <= 0) {
-                System.out.println("전투에서 승리하였습니다!");
+                System.out.println("전투에서 승리하였습니다!\n");
                 cHp = characterDto.getChp();
                 dungeonState += 20;
+                System.out.println("진행도가 " + dungeonStateChange + "%만큼 증가합니다.\n");
                 System.out.println("진행도 : " + dungeonState + "%");
                 gameOver();
                 return;
