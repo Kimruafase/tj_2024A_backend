@@ -121,3 +121,48 @@ select *from board where bno = 10;	-- 10번 게시물 개별 조회
 # 삭제
 delete from board where bno = 0;
 delete from board where bno = 0 and mno = 0;
+
+# 댓글 출력 / 조회
+select *from reply;					-- 댓글 전체 출력
+select *from reply where mNo = 0;	-- 회원 번호가 0인 회원이 작성한 댓글 출력
+select *from reply where bNo = 0;	-- 게시물 번호가 0인 게시물에 작성된 댓글 출력
+
+# 댓글 쓰기
+insert into reply(rContent, mNo, bNo) values("댓글 내용", 3, 1);
+
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 2, 2);
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 3, 3);
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 4, 4);
+insert into reply(rContent, mNo, bNo) value('4번 댓글입니다', 7, 5);
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 5, 6);
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 6, 7);
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 7, 8);
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 8, 9);
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 9, 10);
+insert into reply(rContent, mNo, bNo) value('1번 댓글입니다', 10, 11);
+
+# 게시풀 출력
+use day06;
+select *from board;
+
+# 게시물 출력시 mNo 가 아닌 mId 를 출력
+	# 1. 두 테이블을 출력한다.
+select *from board, member;
+	# 2. 두 테이블의 관계 기준으로 join 한다.
+select *from board, member where board.mNo = member.mNo;
+select *from board natural join member;
+select *from board join member on board.mNo = member.mNo;
+select *from board join member using(mNo);
+select *from board inner join member on board.mNo = member.mNo;
+	# 테이블 명이 길 경우 간소화 -> 별칭 작성
+select *from board b inner join member m on b.mNo = m.mNo;
+
+# 댓글 출력 
+select *from reply;
+select *from reply inner join member on reply.mNo = member.mNo;
+select *from reply inner join member on reply.mNo = member.mNo where reply.bNo = 5;
+
+# 조회수 증가 처리, 조회수 1 증가, 기존 필드값을 변경, update
+update board set bView = 1;
+update board set bView = bView + 1;
+update board set bView = bView + 1 where bNo = 0;
