@@ -89,15 +89,35 @@ public class BoardView {    // public 으로 선언된 BoardView 클래스입니
             result.forEach(boardDto -> {        // 리스트 객체명.forEach(반복변수 -> {실행문}); // 리스트 내 전체 DTO를 하나씩 반복변수에 대입 반복
                 System.out.printf("%2d\t%2d\t%10s\t%s %s\n",boardDto.getbNo(),boardDto.getbView(),boardDto.getbDate(),boardDto.getbTitle(),boardDto.getmId());
             });
-            System.out.println(" >> 0 : 글쓰기  1~ : 개별 글 조회 << ");
+            System.out.println(" >> -1 : 제목 검색 0 : 글쓰기  1~ : 개별 글 조회 << ");
             int ch = scan.nextInt();
 
             if(ch == 0){
                 bWrite();
             }else if (ch >= 1){
                 bView(ch);
+            } else if (ch == -1) {
+                search();
             }
         }   //  bPrint 메소드 종료
+
+        //  12. 제목 검색 함수
+        public void search(){
+            scan.nextLine();
+            System.out.println(" >> 찾을 제목을 입력해주세요. << ");
+            String title = scan.nextLine();
+            ArrayList<BoardDto> result = BoardController.getInstance().search(title);
+            System.out.println(result);
+            if(result.isEmpty()){
+                System.out.println(" 찾는 게시물이 없습니다.");
+            }else{
+                System.out.println("번호\t 조회수\t 작성일\t\t\t제목 \t작성자");
+                result.forEach(boardDto -> {        // 리스트 객체명.forEach(반복변수 -> {실행문}); // 리스트 내 전체 DTO를 하나씩 반복변수에 대입 반복
+                    System.out.printf("%2d\t%2d\t%10s\t%s %s\n",boardDto.getbNo(),boardDto.getbView(),boardDto.getbDate(),boardDto.getbTitle(),boardDto.getmId());
+                });
+            }
+        }   //  search 메소드 end
+
 
         //  5. 게시물 쓰기 함수
         public void bWrite(){

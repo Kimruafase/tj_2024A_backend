@@ -202,7 +202,7 @@ public class DungeonView {
         } else if (dungeonState >= 100) {
             System.out.println("\n-----------------------------------------\n");
             System.out.println("[[던전을 클리어하셨습니다! 축하드립니다!]]\n");
-            System.out.println("=============== GAME CLEAR =============== ");
+            System.out.println("=============== GAME CLEAR ============== ");
             return;
         } else{
             goOrBack();

@@ -62,4 +62,9 @@ public class BoardController {
         replyDto.setmNo(MemberController.mControl.loginMno);    //  replyDto 에 setter 를 통해서 MemberController 클래스의 loginMno 변수 값을 mNo에 간접 대입
         return BoardDao.getInstance().rWrite(replyDto);         //  replyDto 를 받아서 BoardDao 의 rWrite 메소드에 매개변수로 보낸 후 Boolean 타입의 값으로 반환받음
     }   //  rWrite 메소드 end
+
+    //  12. 제목 검색 함수
+    public ArrayList<BoardDto> search(String title){
+        return BoardDao.getInstance().search(title);
+    }   //  search 메소드 end
 }

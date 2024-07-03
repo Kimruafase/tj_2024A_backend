@@ -34,7 +34,7 @@ public class BoardDao {
         ArrayList<BoardDto> list = new ArrayList<>();
         try{    // 0. 예외처리
             // String sql = "select *from board;";     //  1. sql 에 DB 조작어 작성
-            String sql = "select *from board inner join member on board.mNo = member.mNo";
+            String sql = "select *from board inner join member on board.mNo = member.mNo order by bDate desc";
             ps = connection.prepareStatement(sql);  //  2. sql 기재
             rs = ps.executeQuery();                 //  3. 기재된 sql 실행
             while (rs.next()){                      //  4. 결과 레코드 전체를 한 줄씩 순회하기
@@ -88,7 +88,7 @@ public class BoardDao {
 //            String sql2 = "update board set bView = bView + 1 where bNo = ?";     //  sql2에 클릭시 조회수 1 증가할 조작어 작성
             ps = connection.prepareStatement(sql);
 //            PreparedStatement ps2 = connection.prepareStatement(sql2);
-//            ps.setInt(1,ch);                           // 1번째 ?에 ch 대입
+            ps.setInt(1,ch);                           // 1번째 ?에 ch 대입
 //            ps2.setInt(1,ch);
 //            ps2.executeUpdate();
             rs = ps.executeQuery();
@@ -208,7 +208,39 @@ public class BoardDao {
             System.out.println(e);
         }
         return false;
-    }
+    }   //  viewIncrease 메소드 end
+
+    //  12. 제목 검색 함수
+    public ArrayList<BoardDto> search(String title){
+        ArrayList<BoardDto> list = new ArrayList<>();               //  arrayList 생성
+        try{
+            //  String sql = "select *from board where bTitle like '%제%';";                 //  가능
+            //  String sql = "select *from board where bTitle like '%?%';";                 //  불가능, 파라미터 인식 불가능
+            //  String sql = "select *from board where bTitle like ?;";                     //  가능은 하지만 "%"+ title+ "%"로 setString 을 해줘야함
+            //  String sql = "select *from board where bTitle like '% " +title +" %';";     //  가능, 연결 연산자 사용하면
+            //  String sql = "select *from board where bView like %?%";                     //  불가능, int 인식 X
+            //  String sql = "select *from board where bView like %3%";                     //  불가능, int 인식 X
+            String sql = "select *from board inner join member on board.mNo = member.mNo where bTitle like CONCAT('%', ?, '%')";        //  가능, sql 제공하는 CONCAT('문자열', '문자열', '문자열') 문자열 연결 함수
+            ps = connection.prepareStatement(sql);
+            ps.setString(1,title);
+            //  ps.setString(1,"%"+ title+ "%");
+            //  ps.setInt(1,3);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                BoardDto boardDto = new BoardDto(rs.getString("bTitle"),
+                        rs.getString("bContent"),
+                        rs.getString("bDate"),
+                        rs.getInt("bView"),
+                        rs.getInt("mNo"),
+                        rs.getInt("bNo"));      // DTO 1개 만들고 바로 add
+                boardDto.setmId(rs.getString("mid"));
+                list.add(boardDto);
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }   //  search 메소드 end
 
 }   //  BoardDao 클래스 end
 
