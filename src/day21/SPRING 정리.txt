@@ -1,0 +1,85 @@
+intelliJ - Spring
+
+1. 새 프로젝트
+> 이름 : [임의로](springProject)
+> 위치 : 아무데나 상관없음
+> Git 저장소 체크X
+> 시스템 빌드 : Gradle
+> JDK : 17
+> Gradle DSL : Groovy
+> 샘플 코드 추가 X, 고급 설정 X
+> 생성
+
+2. 스프링 기본 세팅
+0) 라이브러리 세팅
+> https://start.spring.io/
+> 버전 체크
+> ADD DEPENDENCIES -> 원하는 라이브러리 선택
+> EXPLORE 선택
+> build.gradle 복사
+1) src -> main -> java -> 패키지(web) 구성
+ > 1. 클래스 생성 (임의) -> 최상위 패키지에 위치
+ > 2. 클래스 위에 @SpringBootApplication (어노테이션) 주입
+ > 3. main 함수 작성 -> main 함수 안에 SpringApplication.run(현재 클래스명.class); 작성 후 실행
+@SpringBootApplication
+public class AppStart {
+    public static void main(String[] args) {
+        SpringBootApplication.run(AppStart.class);
+    }
+}
+2) 프로젝트 폴더 -> build.gradle 에 붙여넣기 -> 코끼리 아이콘 버튼 클릭
+
+3) resources 폴더 -> static 경로 추가 -> index.html 파일 생성
+
+3.
+JDK : 자바 개발도구 v.17 (컴파일러 포함, jar[각종 미리 만든 클래스] 포함)
+라이브러리 : (도구) 클래스, 인터페이스들을 모아둔 압축파일
+프레임워크 : (틀) 프로그램 개발하기 위해 틀을 제공하는 프로그램
+
+     프레임워크 [ 라이브러리 [ 클래스 [ 코드 ] ] ]
+
+SPRING : 자바를 이용한 라이브러리들의 집합들로 만든 프레임워크, 프로그램
+
+SPRING BOOT : SPRING 세팅을 간소화 / 자동화
+       >> SPRING WEB, SPRING batch 등의 세팅을 손쉽게 제공
+
+프로젝트 :
+       > HTML / CSS / JS -> VSCODE 프로젝트
+       > JAVA( CONSOLE ) 프로젝트
+       > SPRING 프로젝트 -> 무료 버전에서는 지원 X -> https://start.spring.io/ -> gradle 프로젝트 생성해서 직접 SPRING 세팅
+
+그래들(Gradle) : 그루비를 이용한 빌드 자동화 시스템(프로그램)이다.
+> 그루비 : JAVA 기반으로 만들어진 객체지향 언어
+> 외부 라이브러리 / 프레임워크 설치 해주고 관리해주는 프로그램
+
+> 자동화 시스템이 아니라면?
+ > .jar 파일 다운 -> jar 파일 프로젝트 내 저장 -> jar 파일을 오른쪽 클릭해서 프로젝트에 등록
+   > 외부 라이브러리가 많아지면 관리가 힘들다.
+ > 외부 라이브러리들을 아래와 그래들 형식의 코드를 통해 자동 다운로드 / 빌드 / 세팅
+   > implementation 'org.springframework.boot:spring-boot-starter-web'
+
+> SPRING WEB 프레임워크
+ > 미리 규칙 / 규약 / 세팅 / 법을 만들어둬서 협업이 쉬워진다. -> MVC 패턴을 미리 다 세팅
+ > 전자정부 프레임워크(SPRING) : 한 사람이 평생 하지 못하므로 담당자 / 개발자가 자주 변경됨 -> 이어서 개발하기 쉽도록 정해줌
+
+> 프로젝트 폴더 규칙
+ > *src : 코드 소스 파일
+  > main
+   > java
+    > 패키지 : 최상위 패키지명 [ 웹 or 앱 페이지의 URL을 거꾸로 쓰는 것이 관례] ex_ com -> naver
+     > 클래스 : 스프링 부트를 실행하기 위해 main 함수를 갖는 클래스
+
+> APACHE TOMCAT 아키텍쳐 : Apache + Tomcat
+ > HTML, Servlet(클래스) 들을 클라이언트로 부터 요청 / 응답의 서비스를 구축하는 프로그램 (SPRING WEB에 포함되어있음)
+  > Apache 서버 : http를 지원하는 서버(구축) 프로그램
+    > HTTP 규약에 따른 통신 가능,
+  > Tomcat 서버 : JAVA 기반으로 만들어진 서버(구축) 프로그램
+    > JSP, *Servlet*(클래스) 규약에 따른 통신 가능
+ > SERVER : 서비스를 제공하는 컴퓨터
+ > CLIENT : 서비스를 요청하는 컴퓨터
+   > url 요청 -> 네이버 회사에게 메인 페이지를 줘 -> 네이버 서버실에서 메인페이지 [매핑] 찾아서
+                                    <- 찾은 HTML 전달 <-
+
+> HTTP : 하이퍼 텍스트 트랜스퍼 프로토콜
+  > 문서를 교환할 때 사용되는 규약(인터넷)
+    > 주로 문서(HTML, XML, TEXT 등), JAVA는 X
